@@ -1,0 +1,23 @@
+version: '3'
+services:
+  loris:
+    image: loris-app
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+    volumes:
+      - "loris-data:/var/www/loris"
+      - "imaging-data:/data"
+    entrypoint: docker-php-entrypoint
+    command: apache2-foreground
+  db:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    volumes:
+      - "./mysql-data:/var/lib/mysql"
+volumes:
+  loris-data:
+  imaging-data:
