@@ -44,7 +44,7 @@ After configuring Loris by following all of the steps above, you may want to ins
 - Since the `imaging_install.sh` script must be run in interactive mode, you must first spin up the application and database with appropiate links 
         - From within loris-app directory
             - `docker-compose up -d`
-        - From within the container
+        - Enter the container
             - `docker-compose exec loris bash`
             - Grant lorisadmin ownership over /data directory
                 - `sudo chown -R lorisadmin:www-data /data`

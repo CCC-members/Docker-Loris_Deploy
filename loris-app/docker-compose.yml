@@ -8,8 +8,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "loris-data:/var/www/loris"
-      - "imaging-data:/data"
+      - "loris-app:/var/www/loris"
+      - "loris-data:/data/loris"
+      - "incoming-data:/data/incoming"
     entrypoint: docker-php-entrypoint
     command: apache2-foreground
   db:
@@ -17,7 +18,9 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - "./mysql-data:/var/lib/mysql"
+      - "mysql-data:/var/lib/mysql"
 volumes:
+  loris-app:
   loris-data:
-  imaging-data:
+  incoming-data:
+  mysql-data:
