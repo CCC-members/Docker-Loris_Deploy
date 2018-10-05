@@ -64,5 +64,54 @@ After configuring Loris by following all of the steps above, you may want to ins
         - Start again with new image
             - `docker-compose up -d`
 
+Steps to install Data Query Tool
+===
+Stop running loris app
+    - From within loris-app directory run
+        - `docker-compose down`
+Spin up a new loris app using the docker-compose.yml file located in the data_query_tool directory
+    - Create, inside the data_query_tool directory, a a _.couchdb_env_ file which should contain the username and password for the couchbase db connection e.g
+                - `COUCHDB_USER=root`
+                - `COUCHDB_PASSWORD=loris-database`
+    - Save the docker-compose.yml file inside the loris-app directory
+        - From within loris-app directory run
+            - `mv docker-compose.yml docker-compose.yml.backup` 
+    - Copy the docker-compose file from data_query_tool directory to the loris-app directory 
+        - From within loris-app directory run
+            - `cp ../data_query_tool/docker-compose.yml .`
+    - Spin up the app:
+        - `docker-compose up -d`
+Set up CouchDB database by replicating existing database and running import scripts following instructions given in https://github.com/aces/Data-Query-Tool
+    - Run a container mounting the loris-app volume in order to edit config.xml file to add the new CouchDB configuration parameters
+        - `docker run -it --rm -v lorisapp_loris-app:/app alpine sh`
+        - `vi /app/project/config.xml`
+        - Change the section `<CouchDB>...</CouchDB>` accordingly. Database host is `couchdb` and the port is 5984. Username and passwords are whatever you set in your .couchdb_env file. Database name is whatever you want (dqg is recommended), but please remember the name for subsequent steps
+        - Exit the container `Ctrl+D`
+    - Enter the loris-app container. From within loris-app directory run
+        - `docker-compose exec loris bash`
+        - Install erica and its dependencies in order to replicate existing database
+            - `sudo apt-get install -yy rebar erlang-src erlang-xmerl erlang-parsetools`
+            - `wget https://people.apache.org/~dch/dist/tools/erica`
+            - `mv erica /usr/bin`
+            - `chmod +x /usr/bin/erica`
+        - Exit the container, commit changes and restart application
+            - `Ctrl-D`
+            - `docker commit [loris container name] loris-app`
+            - `docker-compose down`
+            - `docker-compose up -d`
+    - Clone data query tools repo and replicate database, using configuration parameters you set in previous step
+        - `docker-compose exec loris bash`
+        - `git clone https://github.com/aces/Data-Query-Tool.git`
+        - `cd Data-Query-Tool`
+        - `erica push http://$YOURCOUCHDBADMIN:$YOURCOUCHADMINPASS@$YOURSERVERNAME:5984/$YOURDATABASENAME`
+        - At this point, erica will output a message saying you can access db at a given URL. This is not possible unless you bind the port in the docker-compose file
+    - In your Loris tools directory run the CouchDB_Import_* scripts
+        - From /var/www/loris/tools directory run
+            - php CouchDB_Import_Demographics.php
+            - php CouchDB_Import_Instruments.php
+            - php CouchDB_Import_MRI.php
+        - Exit the container and test Loris deployment
+            - `Ctrl-D`
+
 
     
