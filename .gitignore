@@ -1,3 +1,4 @@
 loris-app/*env
 loris-app/*.backup
+data_query_tool/*env
 test-data/
