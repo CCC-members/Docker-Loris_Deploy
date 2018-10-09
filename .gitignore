@@ -1,3 +1,4 @@
 loris-app/mysql-data/
 loris-app/*env
+loris-app/*.backup
 test-data/
