@@ -27,7 +27,7 @@ Loris Docker deployment instructions:
     - Run docker-compose.yml from loris-app directory in order to spin up application and database docker images
         - From within loris-app directory
             - Create a _.env_ file which should contain the MySQL root password for database connection, e.g
-                - `MYSQL_ROOT_PASSWORD=loris-database`
+                - `MYSQL_ROOT_PASSWORD=loris-password`
             - Spin up the app
                 - `docker-compose up` or `docker-compose up -d` if you would like to run in background
     - Refer to the [documentation online](https://github.com/aces/Loris/wiki/Installing-Loris-in-Brief#installing-the-database---1-of-2) on how to configure application and database username/password. The application is accessible from the IP of the machine where it is running, port 80, or http://localhost if you are running it locally. The MySQL database is accessible at host `db` and the username/password for the database are `root` and whichever password you specified in _.env_ file respectively
@@ -72,7 +72,7 @@ Stop running loris app
 Spin up a new loris app using the docker-compose.yml file located in the data_query_tool directory
     - Create, inside the data_query_tool directory, a a _.couchdb_env_ file which should contain the username and password for the couchbase db connection e.g
                 - `COUCHDB_USER=root`
-                - `COUCHDB_PASSWORD=loris-database`
+                - `COUCHDB_PASSWORD=loris-password`
     - Save the docker-compose.yml file inside the loris-app directory
         - From within loris-app directory run
             - `mv docker-compose.yml docker-compose.yml.backup` 
