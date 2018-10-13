@@ -86,6 +86,9 @@ Spin up a new loris app using the docker-compose.yml file located in the data_qu
     - Copy the docker-compose file from data_query_tool directory to the loris-app directory 
         - From within loris-app directory run
             - `cp ../data_query_tool/docker-compose.yml .`
+    - Create directories to store couchdb volumes, as subdirectories within the same `$VOLUME_PATH` as you specified in previous .env file, named `couchdb-data` and `couchdb-conf`, e.g:
+        - `mkdir /data/loris-volumes/couchdb-data`  
+        - `mkdir /data/loris-volumes/couchdb-conf`  
     - Spin up the app:
         - `docker-compose up -d`
 Set up CouchDB database by replicating existing database and running import scripts following instructions given in https://github.com/aces/Data-Query-Tool
