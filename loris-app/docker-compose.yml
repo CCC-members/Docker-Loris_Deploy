@@ -21,6 +21,26 @@ services:
       - "mysql-data:/var/lib/mysql"
 volumes:
   loris-app:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: "${VOLUME_PATH}/loris-app"
   loris-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: "${VOLUME_PATH}/loris-data"
   incoming-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: "${VOLUME_PATH}/incoming-data"
   mysql-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: "${VOLUME_PATH}/mysql-data"

@@ -25,9 +25,16 @@ Loris Docker deployment instructions:
         - Create a new image with the changes made by the install script
             - `docker commit loris-app loris-app`
     - Run docker-compose.yml from loris-app directory in order to spin up application and database docker images
+        - Create base directory for volume storage, as well as sub-directories for each of the volumes, e.g:
+            - `mkdir /data/loris-volumes`
+                - `mkdir /data/loris-volumes/loris-app`
+                - `mkdir /data/loris-volumes/loris-data`
+                - `mkdir /data/loris-volumes/incoming-data`
+                - `mkdir /data/loris-volumes/mysql-data`
         - From within loris-app directory
-            - Create a _.env_ file which should contain the MySQL root password for database connection, e.g
+            - Create a _.env_ file which should contain the MySQL root password for database connection and the basepath for app volumes, e.g
                 - `MYSQL_ROOT_PASSWORD=loris-password`
+                - `VOLUME_PATH=/data/loris-volumes`
             - Spin up the app
                 - `docker-compose up` or `docker-compose up -d` if you would like to run in background
     - Refer to the [documentation online](https://github.com/aces/Loris/wiki/Installing-Loris-in-Brief#installing-the-database---1-of-2) on how to configure application and database username/password. The application is accessible from the IP of the machine where it is running, port 80, or http://localhost if you are running it locally. The MySQL database is accessible at host `db` and the username/password for the database are `root` and whichever password you specified in _.env_ file respectively
