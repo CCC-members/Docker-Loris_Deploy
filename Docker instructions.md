@@ -93,7 +93,7 @@ Spin up a new loris app using the docker-compose.yml file located in the data_qu
         - `docker-compose up -d`
 Set up CouchDB database by replicating existing database and running import scripts following instructions given in https://github.com/aces/Data-Query-Tool
     - Run a container mounting the loris-app volume in order to edit config.xml file to add the new CouchDB configuration parameters
-        - `docker run -it --rm -v lorisapp_loris-app:/app alpine sh`
+        - `docker run -it --rm -v loris-app_loris-app:/app alpine sh`
         - `vi /app/project/config.xml`
         - Change the section `<CouchDB>...</CouchDB>` accordingly. Database host is `couchdb` and the port is 5984. Username and passwords are whatever you set in your .couchdb_env file. Database name is whatever you want (dqg is recommended), but please remember the name for subsequent steps
         - Exit the container `Ctrl+D`
@@ -117,9 +117,9 @@ Set up CouchDB database by replicating existing database and running import scri
         - At this point, erica will output a message saying you can access db at a given URL. This is not possible unless you bind the port in the docker-compose file
     - In your Loris tools directory run the CouchDB_Import_* scripts
         - From /var/www/loris/tools directory run
-            - php CouchDB_Import_Demographics.php
-            - php CouchDB_Import_Instruments.php
-            - php CouchDB_Import_MRI.php
+            - `php CouchDB_Import_Demographics.php`
+            - `php CouchDB_Import_Instruments.php`
+            - `php CouchDB_Import_MRI.php`
         - Exit the container and test Loris deployment
             - `Ctrl-D`
 
