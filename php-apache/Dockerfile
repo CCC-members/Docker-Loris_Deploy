@@ -3,7 +3,7 @@ LABEL maintainer="mario462@gmail.com"
 
 #Install necessary software
 RUN apt-get update && \
-    apt-get install -yy --no-install-recommends sudo zip curl wget software-properties-common libxml2-dev libpng-dev git unzip && \
+    apt-get install -yy sudo zip curl wget software-properties-common libxml2-dev libpng-dev git unzip && \
     rm -rf /var/lib/apt/lists/*
 #Install default php extensions
 RUN docker-php-ext-install pdo pdo_mysql mysqli xml json mbstring gd
