@@ -20,7 +20,7 @@ RUN adduser lorisadmin sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 #Download loris project into /var/www directory
 WORKDIR /var/www/
-ARG lorisVersion=20.0.1
+ARG lorisVersion=20.2.0
 RUN wget https://github.com/aces/Loris/archive/v${lorisVersion}.zip -O release.zip && \
     unzip release.zip && \
     rm release.zip && \
