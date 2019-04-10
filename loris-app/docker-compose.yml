@@ -6,7 +6,7 @@ services:
     depends_on:
       - db
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - "loris-app:/var/www/loris"
       - "loris-data:/data/loris"
