@@ -1,4 +1,4 @@
-FROM php:7.1-apache-jessie
+FROM php:7.1-apache-stretch
 LABEL maintainer="mario462@gmail.com"
 
 #Install necessary software
